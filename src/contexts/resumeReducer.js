@@ -96,6 +96,9 @@ export default function resumeReducer(state, action) {
         case 'SET_LAST_SAVED_AT':
         return { ...state, meta: { ...state.meta, lastSavedAt: action.payload } }
 
+        case 'RESET':
+        return { ...initialState }
+
         default:
         return state
     }
