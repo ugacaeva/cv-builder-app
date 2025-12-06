@@ -3,6 +3,8 @@
 
 :root{
     --page-max-width: 1200px;
+    --page-h-padding: 1rem;
+    --base-line-height: 1.45;
 }
 
 html, body, #root {
@@ -10,21 +12,37 @@ html, body, #root {
 }
 
 body {
-    font-family: "Rubik", sans-serif;
+    font-family: "Rubik", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background-color: #f8fafc;
     color: #0f172a;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
-    line-height: 1.4;
+    line-height: var(--base-line-height);
+    -webkit-text-size-adjust: 100%;
 }
 
 .container {
-    max-width: var(--page-max-width);
+    max-width: min(var(--page-max-width), 96vw);
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: var(--page-h-padding);
+    padding-right: var(--page-h-padding);
+}
+
+@media (min-width: 1400px) {
+    :root { --page-max-width: 1400px; }
+}
+@media (min-width: 1800px) {
+    :root { --page-max-width: 1600px; }
+}
+
+@media (min-width: 1400px) {
+    body { line-height: 1.5; }
+}
+
+@media (max-width: 640px) {
+    :root { --page-h-padding: 0.75rem; }
 }
 
 .sr-only {

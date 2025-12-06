@@ -1,4 +1,4 @@
-//вместо этого будет картинка, а то треш
+//вместо этого будет картинка
 
 import React from 'react'
 import { useResume } from '../../contexts/ResumeProvider'

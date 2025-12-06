@@ -12,10 +12,10 @@ export default function CreatePage() {
 
     return (
         <CreateInner
-            mode={mode}
-            setMode={setMode}
-            isSaveOpen={isSaveOpen}
-            setSaveOpen={setSaveOpen}
+        mode={mode}
+        setMode={setMode}
+        isSaveOpen={isSaveOpen}
+        setSaveOpen={setSaveOpen}
         />
     )
 }
@@ -29,26 +29,25 @@ function CreateInner({ mode, setMode, isSaveOpen, setSaveOpen }) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <CreateToolbar
             mode={mode}
-            onModeChange={(m) => {
-            setMode(m)
-            }}
+            onModeChange={(m) => setMode(m)}
             onSave={() => setSaveOpen(true)}
         />
 
-        <section className="pt-6 pb-12">
+        <section className="pt-20 pb-12">
             {mode === 'template' ? (
-            <div className="flex gap-6">
-                <div className="w-3/4">
+            <div className="flex flex-col lg:flex-row gap-6">
+                <div className="w-full lg:w-3/4">
                 <PreviewPanel expanded />
                 </div>
                 <TemplatesSidebar sample={sample} />
             </div>
             ) : (
-            <div className="flex gap-6">
+            <div className="flex flex-col lg:flex-row gap-6">
                 <div className="w-full lg:w-1/2">
                 <EditorPanel />
                 </div>
-                <div className="w-full lg:w-1/2">
+
+                <div className="w-full lg:w-1/2 hidden sm:block">
                 <PreviewPanel />
                 </div>
             </div>

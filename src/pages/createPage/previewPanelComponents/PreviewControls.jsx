@@ -13,7 +13,7 @@ export default function PreviewControls() {
     const setFontSize = (v) => dispatch({ type: 'UPDATE_META', payload: { fontSizePt: Number(v) } })
 
     return (
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
         <div>
             <div className="text-xs text-gray-500">Цвет шаблона</div>
             <div className="flex gap-2 mt-1">
@@ -21,7 +21,7 @@ export default function PreviewControls() {
                 <button
                 key={c}
                 onClick={() => setColor(c)}
-                className={`w-6 h-6 rounded`}
+                className="w-6 h-6 rounded"
                 style={{ background: c, boxShadow: meta.themeColor === c ? '0 0 0 3px rgba(0,0,0,0.08)' : undefined }}
                 aria-label={`Выбрать цвет ${c}`}
                 />
