@@ -40,7 +40,7 @@ export default function PersonalEditor() {
         <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
             <Input label="Телефон" value={personal.phone} onChange={(v) => upd('phone', v)} type="tel" placeholder="+7 (XXX) XXX-XX-XX" />
             <Input label="E-mail" value={personal.email} onChange={(v) => upd('email', v)} type="email" />
-            <Input label="Адрес" value={personal.location} onChange={(v) => upd('location', v)} />
+            <Input label="Город проживания" value={personal.location} onChange={(v) => upd('location', v)} />
         </div>
 
         <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -79,7 +79,6 @@ export default function PersonalEditor() {
                 <option value="">Не указано</option>
                 <option value="Мужской">Мужской</option>
                 <option value="Женский">Женский</option>
-                <option value="Другой">Другой</option>
             </select>
             </div>
 

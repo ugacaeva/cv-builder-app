@@ -16,21 +16,19 @@ export default function CreateToolbar({ mode, onModeChange, onSave }) {
 
             <button
                 className={`px-3 py-1 sm:px-4 sm:py-1 rounded-md text-sm font-medium ${
-                mode === 'template' ? 'bg-indigo-600 text-white' : 'text-gray-700'
+                mode === 'template' ? 'bg-indigo-600 text-white' : 'text-indigo-600 border border-indigo-600'
                 }`}
                 onClick={() => onModeChange('template')}
             >
                 ИЗМЕНИТЬ ШАБЛОН
             </button>
 
-            {mode === 'template' && (
-                <button
-                    className="px-3 py-1 sm:px-4 sm:py-1 rounded-md text-sm font-medium text-gray-700 border border-gray-200"
-                    onClick={() => onSave()}
-                >
-                    СОХРАНИТЬ
-                </button>
-            )}
+            <button
+                className="px-3 py-1 sm:px-4 sm:py-1 rounded-md text-sm font-medium text-indigo-600 border border-indigo-600"
+                onClick={() => onSave()}
+            >
+                СОХРАНИТЬ
+            </button>
             </div>
         </div>
         </div>

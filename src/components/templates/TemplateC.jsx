@@ -43,13 +43,13 @@ export default function TemplateC({ data = {}, meta = {} }) {
                         <div className="mt-3 text-sm text-gray-700 space-y-1">
                             {personal.phone && <div>Телефон: {personal.phone}</div>}
                             {personal.email && <div>Почта: {personal.email}</div>}
-                            {personal.location && <div>Адрес: {personal.location}</div>}
+                            {personal.location && <div>Город проживания: {personal.location}</div>}
 
                             {(personal.desiredSalary || personal.employment) && (
                                 <div className="text-gray-600 text-sm">
-                                    {personal.desiredSalary && <span>З/п: {personal.desiredSalary}</span>}
+                                    {personal.desiredSalary && <span>Желаемая з/п: {personal.desiredSalary}</span>}
                                     {personal.desiredSalary && personal.employment && <span className="mx-2">•</span>}
-                                    {personal.employment && <span>{personal.employment}</span>}
+                                    {personal.employment && <span>Занятость: {personal.employment}</span>}
                                 </div>
                             )}
 

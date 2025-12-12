@@ -56,3 +56,34 @@ body {
     white-space: nowrap;
     border: 0;
 }
+
+.a4-sheet {
+    width: 210mm;
+    height: 297mm;
+    background: white;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+.resume-preview-viewport {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+
+.a4-sheet > * {
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 640px) {
+    .a4-sheet { border-radius: 3px; }
+}

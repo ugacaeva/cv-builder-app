@@ -1,6 +1,46 @@
 import html2canvas from 'html2canvas-pro'
 import jsPDF from 'jspdf'
 
+function cssPxToPt(px) {
+    return (px * 72) / 96
+}
+
+async function getElementToRender(elementOrId) {
+    let el = typeof elementOrId === 'string'
+        ? document.getElementById(elementOrId)
+        : elementOrId
+
+    if (!el) return null
+
+    if (el.tagName === 'IFRAME') {
+        const iframe = el
+        try {
+        const doc = iframe.contentDocument
+        if (doc) {
+            const inner = doc.getElementById('sheet-root') || doc.body
+            return { element: inner, ownerDocument: doc }
+        }
+        } catch (e) {
+        return null
+        }
+    }
+
+    const iframeIn = el.querySelector && el.querySelector('iframe')
+    if (iframeIn) {
+        try {
+        const doc = iframeIn.contentDocument
+        if (doc) {
+            const inner = doc.getElementById('sheet-root') || doc.body
+            return { element: inner, ownerDocument: doc, iframe: iframeIn }
+        }
+        } catch (e) {
+        return null
+        }
+    }
+
+    return { element: el, ownerDocument: document }
+}
+
 export default async function exportPDF(
     elementIdOrNode,
     filename = 'resume.pdf',
@@ -8,13 +48,17 @@ export default async function exportPDF(
 ) {
     const { scale = 2, marginPt = 16, quality = 1.0 } = opts
 
-    const element =
-        typeof elementIdOrNode === 'string'
-        ? document.getElementById(elementIdOrNode)
-        : elementIdOrNode
-    if (!element) throw new Error('Element not found for exportPDF')
+    const resolved = await getElementToRender(elementIdOrNode)
+    if (!resolved || !resolved.element) throw new Error('Element not found or inaccessible (iframe cross-origin?)')
 
-    if (document.fonts && document.fonts.ready) await document.fonts.ready
+    const { element, ownerDocument } = resolved
+
+    try {
+        if (ownerDocument && ownerDocument.fonts && ownerDocument.fonts.ready) {
+        await ownerDocument.fonts.ready
+        }
+    } catch (e) {
+    }
 
     const pdf = new jsPDF({ unit: 'pt', format: 'a4', orientation: 'portrait' })
     const pageW = pdf.internal.pageSize.getWidth()
@@ -31,10 +75,14 @@ export default async function exportPDF(
         useCORS: true,
         allowTaint: false,
         logging: false,
-        letterRendering: true
+        letterRendering: true,
+        windowWidth: cssWidth,
+        windowHeight: cssHeight,
+        width: cssWidth,
+        height: cssHeight,
+        backgroundColor: '#ffffff'
     })
 
-    const cssPxToPt = px => (px * 72) / 96
     let imgWidthPt = cssPxToPt(cssWidth)
     let imgHeightPt = cssPxToPt(cssHeight)
 
@@ -66,7 +114,6 @@ export default async function exportPDF(
         ctx.drawImage(canvas, 0, posY, canvas.width, sliceH, 0, 0, canvas.width, sliceH)
 
         const pageImg = canvasPage.toDataURL('image/jpeg', Math.min(Math.max(quality, 0.1), 1))
-
         const sliceHpt = sliceH / pxPerPt
         const x = (pageW - imgWidthPt) / 2
         const y = marginPt
